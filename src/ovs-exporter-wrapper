@@ -1,0 +1,12 @@
+#!/bin/sh
+
+. "${SNAP}/utilities/setup"
+
+exec "${SNAP}/bin/ovs-exporter" \
+    -web.listen-address="$(listen_address)" \
+    -database.vswitch.socket.remote unix:/var/snap/openstack-hypervisor/common/run/openvswitch/db.sock \
+    -database.vswitch.file.pid.path /var/snap/openstack-hypervisor/common/run/openvswitch/ovsdb-server.pid \
+    -service.vswitchd.file.pid.path /var/snap/openstack-hypervisor/common/run/openvswitch/ovs-vswitchd.pid \
+    -service.ovncontroller.file.pid.path /var/snap/openstack-hypervisor/common/run/ovn/ovn-controller.pid \
+    -service.ovncontroller.file.log.path /var/snap/openstack-hypervisor/common/log/ovn/ovn-controller.log \
+    -system.run.dir /var/snap/openstack-hypervisor/common/run/openvswitch
